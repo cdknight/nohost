@@ -51,11 +51,11 @@ in
         NOHOST_SHOWIP = if nohostcfg.showIP then "1" else "0";
       };
       serviceConfig = let
-        nohostpkg = pkgs.callPackage ./Cargo.nix {}; # This will, like, build the entire thing
+        nohostpkg = pkgs.callPackages ./Cargo.nix { }; # This will, like, build the entire thing
       in {
         Type = "oneshot";
         User = nohostcfg.user;
-        ExecStart = "${nohostpkg}/bin/nohost";
+        ExecStart = "${nohostpkg.nohost}/bin/nohost";
       };
     };
 

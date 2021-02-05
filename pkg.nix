@@ -26,4 +26,4 @@ let
     # packageOverrides = pkgs: pkgs.rustBuilder.overrides.all; # Implied, if not specified
   };
 in
-  rustPkgs.workspace.bigger-project {}
+  rustPkgs.workspace.nohost {}

@@ -29,6 +29,11 @@ in
     };
   };
 
+  nixpkgs.overlays = let
+    nohostpkg_import = pkgs.callPackage ./Cargo.nix;
+    nohostpkg = nohostpkg_import.rootCrate.build;
+  in
+  [ nohostpkg ];
 
   # Nohost stuff
 
@@ -51,8 +56,6 @@ in
         NOHOST_SHOWIP = if nohostcfg.showIP then "1" else "0";
       };
       serviceConfig = let
-        nohostpkg_import = pkgs.callPackage ./Cargo.nix;
-	nohostpkg = nohostpkg_import.rootCrate.build;
       in {
         Type = "oneshot";
         User = nohostcfg.user;

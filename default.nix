@@ -8,8 +8,6 @@ in
 {
   # Service
 
-  imports = [ ./pkg.nix ];
-
   options.services.nohost = {
     enable = mkEnableOption "NoHost";
     domain = mkOption {

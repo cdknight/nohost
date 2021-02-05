@@ -8,6 +8,8 @@ in
 {
   # Service
 
+  imports = [ ./pkg.nix ];
+
   options.services.nohost = {
     enable = mkEnableOption "NoHost";
     domain = mkOption {
@@ -51,7 +53,7 @@ in
         NOHOST_SHOWIP = if nohostcfg.showIP then "1" else "0";
       };
       serviceConfig = let
-        nohostpkg = pkgs.callPackages ./Cargo.nix { }; # This will, like, build the entire thing
+        nohostpkg = pkgs.nohost;
       in {
         Type = "oneshot";
         User = nohostcfg.user;

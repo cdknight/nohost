@@ -9,6 +9,7 @@
     url = https://github.com/cargo2nix/cargo2nix;
     rev = "4bbd3137ff1422ef3565748eae33efe6e2ffbf39";
   },
+  ... 
 }:
 let
   rustOverlay = import "${nixpkgsMozilla}/rust-overlay.nix";

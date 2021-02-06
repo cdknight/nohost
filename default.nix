@@ -8,6 +8,8 @@ in
 {
   # Service
 
+  ##imports = [ ./overlay.nix ];
+
   options.services.nohost = {
     enable = mkEnableOption "NoHost";
     domain = mkOption {
@@ -29,11 +31,6 @@ in
     };
   };
 
-  nixpkgs.overlays = let
-    nohostpkg_import = pkgs.callPackage ./Cargo.nix;
-    nohostpkg = nohostpkg_import.rootCrate.build;
-  in
-  [ nohostpkg ];
 
   # Nohost stuff
 
@@ -56,10 +53,10 @@ in
         NOHOST_SHOWIP = if nohostcfg.showIP then "1" else "0";
       };
       serviceConfig = let
+	nohostpkg = pkgs.callPackage ./Cargo.nix {};
       in {
-        Type = "oneshot";
         User = nohostcfg.user;
-        ExecStart = "${nohostpkg.nohost}/bin/nohost";
+        ExecStart = "${nohostpkg.rootCrate.build}/bin/nohost";
       };
     };
 

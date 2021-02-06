@@ -23,7 +23,7 @@ lazy_static! {
 async fn domain_notfound(req: HttpRequest) -> impl Responder {
     let host = req.headers().get("Host").unwrap().to_str().unwrap(); // We know this will exist because the guard guarantees it does
     let conninfo = req.connection_info();
-    let ip = conninfo.remote_addr().unwrap(); // Hopefully this works
+    let ip = conninfo.realip_remote_addr().unwrap(); // Hopefully this works
 
     let mut resp = format!("Domain {} not found", &CONFIG.domain);
     if CONFIG.show_ip {

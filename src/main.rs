@@ -25,7 +25,7 @@ async fn domain_notfound(req: HttpRequest) -> impl Responder {
     let conninfo = req.connection_info();
     let ip = conninfo.realip_remote_addr().unwrap(); // Hopefully this works
 
-    let mut resp = format!("Domain {} not found", &CONFIG.domain);
+    let mut resp = format!("Domain {} not found", &host);
     if CONFIG.show_ip {
         resp += &format!("\nYour Public IP: {}", ip);
     }

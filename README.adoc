@@ -1,0 +1,17 @@
+== nohost
+
+Boring server to handle missing virtual hosts… and to display a landing page.
+
+=== Installing with Cargo
+
+Simply `cargo run` and you should be good.
+
+=== Installing with Nix
+
+You should be able to just add the following to your imports in `configuration.nix`.
+
+[source,nix]
+----
+imports = [ "${builtins.fetchTarball "https://github.com/cdknight/nohost/archive/master.tar.gz"}/" ]
+----
+

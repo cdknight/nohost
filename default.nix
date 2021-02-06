@@ -8,8 +8,6 @@ in
 {
   # Service
 
-  ##imports = [ ./overlay.nix ];
-
   options.services.nohost = {
     enable = mkEnableOption "NoHost";
     domain = mkOption {
@@ -18,10 +16,12 @@ in
     };
     bindAddr = mkOption {
       type = types.str;
-      description = "Bind address for NoHost. In the form <IP>:<PORT>. Default in the program is 0.0.0.0:8080.";
+      default = "0.0.0.0:8080";
+      description = "Bind address for NoHost. In the form <IP>:<PORT>.";
     };
     showIP = mkOption {
       type = types.bool;
+      default = false;
       description = "Whether NoHost should show types on 404 pages.";
     };
     user = mkOption {
@@ -53,7 +53,7 @@ in
         NOHOST_SHOWIP = if nohostcfg.showIP then "1" else "0";
       };
       serviceConfig = let
-	nohostpkg = pkgs.callPackage ./Cargo.nix {};
+        nohostpkg = pkgs.callPackage ./Cargo.nix {};
       in {
         User = nohostcfg.user;
         ExecStart = "${nohostpkg.rootCrate.build}/bin/nohost";

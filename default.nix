@@ -46,6 +46,8 @@ in
 
     systemd.services.nohost = {
       description = "NoHost service";
+      wantedBy = ["multi-user.target"];
+      after = [ "network.target" ];
       enable = true;
       environment = {
         NOHOST_DOMAIN = nohostcfg.domain;

@@ -927,6 +927,76 @@ rec {
         ];
         
       };
+      "actix-web-static-files" = rec {
+        crateName = "actix-web-static-files";
+        version = "3.0.5";
+        edition = "2018";
+        sha256 = "1j79khcgm71fx28li0730wvjngm6ryd72wxx4q27b66ki78wwnwb";
+        authors = [
+          "Alexander Korolev <kilork@yandex.ru>"
+        ];
+        dependencies = [
+          {
+            name = "actix-service";
+            packageId = "actix-service";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "actix-web";
+            packageId = "actix-web";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "derive_more";
+            packageId = "derive_more";
+          }
+          {
+            name = "futures";
+            packageId = "futures";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "mime_guess";
+            packageId = "mime_guess";
+          }
+          {
+            name = "path-slash";
+            packageId = "path-slash";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "actix-service";
+            packageId = "actix-service";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "actix-web";
+            packageId = "actix-web";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "derive_more";
+            packageId = "derive_more";
+          }
+          {
+            name = "futures";
+            packageId = "futures";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "mime_guess";
+            packageId = "mime_guess";
+          }
+          {
+            name = "path-slash";
+            packageId = "path-slash";
+          }
+        ];
+        features = {
+        };
+        resolvedDefaultFeatures = [ "default" ];
+      };
       "addr2line" = rec {
         crateName = "addr2line";
         version = "0.14.1";
@@ -2544,6 +2614,86 @@ rec {
         ];
         
       };
+      "maud" = rec {
+        crateName = "maud";
+        version = "0.22.2";
+        edition = "2018";
+        sha256 = "1yk2a6gy6naq615qssy57yl18r4vvx4101y1cl1zh1hcif0881ys";
+        authors = [
+          "Chris Wong <lambda.fairy@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "actix-web";
+            packageId = "actix-web";
+            rename = "actix-web-dep";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "futures-util";
+            packageId = "futures-util";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "maud_htmlescape";
+            packageId = "maud_htmlescape";
+          }
+          {
+            name = "maud_macros";
+            packageId = "maud_macros";
+          }
+        ];
+        features = {
+          "actix-web" = [ "actix-web-dep" "futures-util" ];
+        };
+        resolvedDefaultFeatures = [ "actix-web" "actix-web-dep" "default" "futures-util" ];
+      };
+      "maud_htmlescape" = rec {
+        crateName = "maud_htmlescape";
+        version = "0.17.0";
+        edition = "2015";
+        sha256 = "1dxzakhgpgbr7yy7z8vmywbi77d3yrwqdvg1s4m30hpwryy8byyh";
+        libPath = "lib.rs";
+        authors = [
+          "Chris Wong <lambda.fairy@gmail.com>"
+        ];
+        
+      };
+      "maud_macros" = rec {
+        crateName = "maud_macros";
+        version = "0.22.2";
+        edition = "2018";
+        sha256 = "07jvcn3d99xbplimb3la1f6xriz9fy2jrgfqlc3i8rylmdc0383k";
+        procMacro = true;
+        authors = [
+          "Chris Wong <lambda.fairy@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "maud_htmlescape";
+            packageId = "maud_htmlescape";
+          }
+          {
+            name = "proc-macro-error";
+            packageId = "proc-macro-error";
+          }
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+          {
+            name = "syn";
+            packageId = "syn";
+          }
+        ];
+        
+      };
       "memchr" = rec {
         crateName = "memchr";
         version = "2.3.4";
@@ -2568,6 +2718,35 @@ rec {
           "Sean McArthur <sean@seanmonstar.com>"
         ];
         
+      };
+      "mime_guess" = rec {
+        crateName = "mime_guess";
+        version = "2.0.3";
+        edition = "2015";
+        sha256 = "04pjpbl90z4yn0cmifvwgf4mqznciw6b095k626q96bxx71d9116";
+        authors = [
+          "Austin Bonander <austin.bonander@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "mime";
+            packageId = "mime";
+          }
+          {
+            name = "unicase";
+            packageId = "unicase";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "unicase";
+            packageId = "unicase";
+          }
+        ];
+        features = {
+          "default" = [ "rev-mappings" ];
+        };
+        resolvedDefaultFeatures = [ "default" "rev-mappings" ];
       };
       "miniz_oxide" = rec {
         crateName = "miniz_oxide";
@@ -2763,12 +2942,27 @@ rec {
             packageId = "actix-web";
           }
           {
+            name = "actix-web-static-files";
+            packageId = "actix-web-static-files";
+          }
+          {
             name = "lazy_static";
             packageId = "lazy_static";
           }
           {
+            name = "maud";
+            packageId = "maud";
+            features = [ "actix-web" ];
+          }
+          {
             name = "regex";
             packageId = "regex";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "actix-web-static-files";
+            packageId = "actix-web-static-files";
           }
         ];
         
@@ -2914,6 +3108,16 @@ rec {
           "deadlock_detection" = [ "petgraph" "thread-id" "backtrace" ];
         };
       };
+      "path-slash" = rec {
+        crateName = "path-slash";
+        version = "0.1.4";
+        edition = "2018";
+        sha256 = "06dnnmd3fvmr9ngwgj0xrfj9s8h09m9dgf3zlqsbalzk9wybpb1w";
+        authors = [
+          "rhysd <https://rhysd.github.io>"
+        ];
+        
+      };
       "percent-encoding" = rec {
         crateName = "percent-encoding";
         version = "2.1.0";
@@ -3053,6 +3257,73 @@ rec {
           "default" = [ "std" ];
         };
         resolvedDefaultFeatures = [ "simd" "std" ];
+      };
+      "proc-macro-error" = rec {
+        crateName = "proc-macro-error";
+        version = "1.0.4";
+        edition = "2018";
+        sha256 = "1373bhxaf0pagd8zkyd03kkx6bchzf6g0dkwrwzsnal9z47lj9fs";
+        authors = [
+          "CreepySkeleton <creepy-skeleton@yandex.ru>"
+        ];
+        dependencies = [
+          {
+            name = "proc-macro-error-attr";
+            packageId = "proc-macro-error-attr";
+          }
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+          {
+            name = "syn";
+            packageId = "syn";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "version_check";
+            packageId = "version_check";
+          }
+        ];
+        features = {
+          "default" = [ "syn-error" ];
+          "syn-error" = [ "syn" ];
+        };
+        resolvedDefaultFeatures = [ "default" "syn" "syn-error" ];
+      };
+      "proc-macro-error-attr" = rec {
+        crateName = "proc-macro-error-attr";
+        version = "1.0.4";
+        edition = "2018";
+        sha256 = "0sgq6m5jfmasmwwy8x4mjygx5l7kp8s4j60bv25ckv2j1qc41gm1";
+        procMacro = true;
+        authors = [
+          "CreepySkeleton <creepy-skeleton@yandex.ru>"
+        ];
+        dependencies = [
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "version_check";
+            packageId = "version_check";
+          }
+        ];
+        
       };
       "proc-macro-hack" = rec {
         crateName = "proc-macro-hack";
@@ -4510,6 +4781,23 @@ rec {
         authors = [
           "Paho Lurie-Gregg <paho@paholg.com>"
           "Andre Bogus <bogusandre@gmail.com>"
+        ];
+        features = {
+        };
+      };
+      "unicase" = rec {
+        crateName = "unicase";
+        version = "2.6.0";
+        edition = "2015";
+        sha256 = "1xmlbink4ycgxrkjspp0mf7pghcx4m7vxq7fpfm04ikr2zk7pwsh";
+        authors = [
+          "Sean McArthur <sean@seanmonstar.com>"
+        ];
+        buildDependencies = [
+          {
+            name = "version_check";
+            packageId = "version_check";
+          }
         ];
         features = {
         };

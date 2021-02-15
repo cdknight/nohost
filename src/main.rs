@@ -1,7 +1,12 @@
-use actix_web::{get, post, web, guard, dev, App, HttpResponse, HttpServer, Responder, HttpRequest};
+use actix_web::{get, post, web, guard, dev, App, HttpResponse, HttpServer, Responder, HttpRequest, Result as AwResult};
+use maud::Markup;
+use actix_web_static_files::ResourceFiles;
 use std::env;
+use nohost::*;
 extern crate regex;
 #[macro_use] extern crate lazy_static;
+
+include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 
 struct Config {
     domain: String,
@@ -23,18 +28,17 @@ lazy_static! {
 async fn domain_notfound(req: HttpRequest) -> impl Responder {
     let host = req.headers().get("Host").unwrap().to_str().unwrap(); // We know this will exist because the guard guarantees it does
     let conninfo = req.connection_info();
-    let ip = conninfo.realip_remote_addr().unwrap(); // Hopefully this works
+    let mut ip = None;
 
-    let mut resp = format!("Domain {} not found", &host);
     if CONFIG.show_ip {
-        resp += &format!("\nYour Public IP: {}", ip);
+        ip = Some(conninfo.realip_remote_addr().unwrap()); // Hopefully this works
     }
 
-    HttpResponse::NotFound().body(resp)
+    HttpResponse::NotFound().body(error_page(&host, ip).into_string())
 }
 
-async fn landing(req: HttpRequest) -> impl Responder {
-    format!("Welcome to {}!", CONFIG.domain)
+async fn landing(req: HttpRequest) -> AwResult<Markup> {
+    Ok(landing_html(&CONFIG.domain))
 }
 
 fn check_wildcard(req: &dev::RequestHead) -> bool {
@@ -55,7 +59,12 @@ async fn main() -> std::io::Result<()> {
 
 
     HttpServer::new(move || {
+        let generated = generate();
+
         App::new()
+            .service(
+                ResourceFiles::new("/static", generated)
+            )
             .service(
                 web::scope("/")
                     .guard(guard::fn_guard(check_wildcard))

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans');
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+body #error {
+    border-left: 4px solid #e33c3c;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+body #success {
+    border-left: 4px solid #06bd06;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+* {
+    font-family: "Work Sans", "Roboto", sans-serif;
+}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans');
+@import url('https://rsms.me/inter/inter.css');
 
 body {
     display: flex;
@@ -15,20 +15,45 @@ body .inner {
     overflow-wrap: break-word;
 }
 
-body #error {
+body .error {
     border-left: 4px solid #e33c3c;
 }
 
-body #success {
+body .success {
     border-left: 4px solid #06bd06;
 }
 
-* {
-    font-family: "Work Sans", "Roboto", sans-serif;
+h3.light {
+   font-weight: normal; 
 }
+
+* {
+    font-family: "Inter", "Roboto", sans-serif;
+    font-feature-settings: "ss01";
+}
+
 
 @media only screen and (max-width: 1000px) {
     body .inner {
         width: 50vw;
     }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+	background-color: #1c0121;
+    }
+
+    * {
+	color: #eee;
+    }
+
+    div.error {
+        border-color: #a40000;
+    }
+
+    div.success {
+        border-color: #007100;
+    }
+
 }

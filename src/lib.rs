@@ -14,13 +14,13 @@ pub fn error_page(domain: &str, ip: Option<&str>) -> Markup {
     html! {
         (header(&format!("Domain {} not found", domain)))
 
-        div.inner#error {
+        div.inner.error {
             h1 {
                 "The domain " (domain) " wasn't found"
             }
 
             @if let Some(ip) = ip {
-                h3 {
+                h3 .light {
                     "Your public IP: " (ip)
                 }
             }
@@ -31,6 +31,6 @@ pub fn error_page(domain: &str, ip: Option<&str>) -> Markup {
 pub fn landing_html(domain: &str) -> Markup {
     html! {
         (header(&format!("Welcome to {}!", domain)))
-        div.inner#success { h1 { "Welcome to " (domain)"!" } }
+        div.inner.success { h1 { "Welcome to " (domain)"!" } }
     }
 }
